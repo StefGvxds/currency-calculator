@@ -14,8 +14,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Snackbar from '@mui/material/Snackbar';
 import { registerUser, loginUser, deleteUser, updateUsername, updatePassword } from '../Services/Api';
-import UpdateUsernameDialog from '../Components/UpdateUsernameDialog';
-import UpdatePasswordDialog from '../Components/UpdatePasswordDialog';
+import UpdateUsernameDialog from './UpdateUsernameDialog';
+import UpdatePasswordDialog from './UpdatePasswordDialog';
 
 const Header = () => {
     const [anchorEl, setAnchorEl] = useState(null);

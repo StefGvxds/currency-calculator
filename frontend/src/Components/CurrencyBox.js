@@ -11,7 +11,6 @@ const CurrencyBox = props => {
             left: '50%',
             transform: 'translateX(-50%)', // Horizontale Zentrierung
             zIndex: 2, // Über dem Hintergrund und Overlay
-            // padding: '20px 40px',
             backgroundColor: 'white', // Weißer Hintergrund für die Box
             borderRadius: '12px', // Abgerundete Ecken
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)', // Schattierung unter der Box
