@@ -37,17 +37,17 @@ const AddExchangeRateButton = () => {
     // Submit the new exchange rate
     const handleAddExchangeRate = async () => {
         if (!baseCurrency || !targetCurrency || !exchangeRate) {
-            showMessage('All fields are required.', 'error');
+            showMessage(`${t("all_fields_required")}`, 'error');
             return;
         }
 
         try {
             await addExchangeRate({ baseCurrency, targetCurrency, exchangeRate: parseFloat(exchangeRate) });
-            showMessage('Exchange rate added successfully!', 'success');
+            showMessage(`${t("exchange_rate_added")}`, 'success');
             triggerUpdate();
             handleDialogClose();
         } catch (error) {
-            const errorMessage = error.response?.data?.message || 'An unexpected error occurred';
+            const errorMessage = error.response?.data?.message || `${t("unexpected_error")}`;
             showMessage(errorMessage, 'error');
         }
     };
@@ -104,7 +104,7 @@ const AddExchangeRateButton = () => {
                         onKeyDown={handleKeyDown}
                     />
                 </DialogContent>
-                <DialogActions>
+                <DialogActions sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Button onClick={handleDialogClose} sx={{ backgroundColor: "#063852", color: 'white' }}>
                         {t("cancel")}
                     </Button>

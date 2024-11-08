@@ -23,7 +23,7 @@ const CurrencyBox = () => {
                 const response = await fetchAllExchangeRates();
                 setExchangeRates(response.data);
             } catch (error) {
-                showMessage("Error loading exchange rates.", "error");
+                showMessage(`${t("error_loading_exchange_rates")}`, "error");
             }
         };
         loadExchangeRates();
@@ -43,7 +43,7 @@ const CurrencyBox = () => {
 
     const handleSwitchCurrencies = async () => {
         if (!amount || !baseCurrency || !targetCurrency) {
-            showMessage("Please complete all fields before switching.", "error");
+            showMessage(`${t("complete_all_fields_before_switching")}`, "error");
             return;
         }
 
@@ -53,13 +53,13 @@ const CurrencyBox = () => {
             setBaseCurrency(targetCurrency);
             setTargetCurrency(baseCurrency);
         } catch (error) {
-            showMessage("Error reversing the currency conversion.", "error");
+            showMessage(`${t("error_reversing_currency_conversion")}`, "error");
         }
     };
 
     const handleConvert = async () => {
         if (!amount || !baseCurrency || !targetCurrency) {
-            showMessage("Please complete all fields before converting.", "error");
+            showMessage(`${t("complete_all_fields_before_converting")}`, "error");
             return;
         }
 
@@ -67,7 +67,7 @@ const CurrencyBox = () => {
             const response = await convertCurrency({ baseCurrency, targetCurrency, amount });
             setConversionResult(response.data.convertedAmount);
         } catch (error) {
-            showMessage("Error converting currency.", "error");
+            showMessage(`${t("error_converting_currency")}`, "error");
         }
     };
 

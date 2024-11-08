@@ -27,22 +27,22 @@ const ChangeUsernameButton = ({ onClose }) => {
 
     const handleUpdateUsername = async () => {
         if (!newUsername) {
-            showMessage('Username cannot be empty', 'error');
+            showMessage(`${t("username_empty")}`, 'error');
             return;
         }
 
         try {
             await updateUsername(userId, newUsername); // userId für die Anfrage verwenden
             setUsername(newUsername); // AuthContext aktualisieren
-            showMessage('Username updated successfully!', 'success');
+            showMessage(`${t("username_updated")}`, 'success');
             handleDialogClose();
         } catch (error) {
             let errorMessage;
 
             if (error.response?.data?.message?.includes('E11000 duplicate key error')) {
-                errorMessage = 'Username already exists. Please choose another one.';
+                errorMessage = `${t("username_exists")}`;
             } else {
-                errorMessage = error.response?.data?.message || 'An unexpected error occurred';
+                errorMessage = error.response?.data?.message || `${t("unexpected_error")}`;
             }
             showMessage(errorMessage, 'error');
         }
@@ -75,7 +75,7 @@ const ChangeUsernameButton = ({ onClose }) => {
                         onKeyDown={handleKeyDown}
                     />
                 </DialogContent>
-                <DialogActions>
+                <DialogActions sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Button onClick={handleDialogClose} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>{t("cancel")}</Button>
                     <Button onClick={handleUpdateUsername} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>{t("save")}</Button>
                 </DialogActions>

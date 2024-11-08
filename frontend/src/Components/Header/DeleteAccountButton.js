@@ -25,11 +25,11 @@ const DeleteAccountButton = ({ onClose }) => {
     const handleDeleteAccount = async () => {
         try {
             await deleteUser(userId);
-            showMessage('Account deleted successfully!', 'success');
+            showMessage(`${t("account_deleted_successfully")}`, 'success');
             handleDialogClose();
             logout(); // Benutzer ausloggen nach Löschung des Kontos
         } catch (error) {
-            const errorMessage = error.response?.data?.message || 'An unexpected error occurred';
+            const errorMessage = error.response?.data?.message || `${t("unexpected_error")}`;
             showMessage(errorMessage, 'error');
         }
     };
@@ -52,7 +52,7 @@ const DeleteAccountButton = ({ onClose }) => {
                 <DialogContent>
                     {t("confirm_delete_message")}
                 </DialogContent>
-                <DialogActions>
+                <DialogActions sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Button onClick={handleDialogClose} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>{t("cancel")}</Button>
                     <Button onClick={handleDeleteAccount} sx={{ mb: 1, backgroundColor: "darkred", color: 'white' }} onKeyDown={handleKeyDown}>
                         {t("confirm_delete")}

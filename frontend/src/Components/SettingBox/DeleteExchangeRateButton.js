@@ -40,7 +40,7 @@ const DeleteExchangeRateButton = () => {
                 const response = await fetchAllExchangeRates();
                 setExchangeRates(response.data);
             } catch (error) {
-                showMessage('Error loading exchange rates.', 'error');
+                showMessage(`${t("error_loading_exchange_rates")}`, 'error');
             }
         };
         fetchExchangeRates();
@@ -52,9 +52,9 @@ const DeleteExchangeRateButton = () => {
         for (let id of selectedRates) {
             try {
                 await deleteExchangeRate(id);
-                showMessage(`Exchange rate with ID ${id} deleted successfully.`, 'success');
+                showMessage(`${t("exchange_rate_deleted_1")} + ${id} + ${t("exchange_rate_deleted_2")}`, 'success');
             } catch (error) {
-                showMessage(`Error deleting exchange rate with ID ${id}.`, 'error');
+                showMessage(`${t("error_deleting_exchange_rate")} ${id}.`, 'error');
                 return;
             }
         }
@@ -93,7 +93,7 @@ const DeleteExchangeRateButton = () => {
                         </Select>
                     </FormControl>
                 </DialogContent>
-                <DialogActions>
+                <DialogActions sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Button onClick={handleDeleteDialogClose} sx={{ backgroundColor: "#063852", color: 'white' }}>
                         {t("cancel")}
                     </Button>

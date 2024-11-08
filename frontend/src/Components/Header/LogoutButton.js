@@ -15,7 +15,7 @@ const LogoutButton = ({onClose}) => {
         logoutUser();
         logout();
         if (onClose) onClose();
-        showMessage('You have successfully logged out.','success');
+        showMessage(`${t("logout_successful")}`,'success');
     };
 
     return (

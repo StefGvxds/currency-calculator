@@ -29,7 +29,7 @@ const UpdateExchangeRateButton = () => {
                 const response = await fetchAllExchangeRates();
                 setExchangeRates(response.data);
             } catch (error) {
-                showMessage('Error loading exchange rates.', 'error');
+                showMessage(`${t("error_loading_exchange_rates")}`, 'error');
             }
         };
         loadExchangeRates();
@@ -64,7 +64,7 @@ const UpdateExchangeRateButton = () => {
     // Funktion zum Aktualisieren der Exchange Rate
     const handleUpdateExchangeRate = async () => {
         if (!selectedExchangeId) {
-            showMessage('Please select an exchange rate to update.', 'error');
+            showMessage(`${t("select_exchange_rate_to_update")}`, 'error');
             return;
         }
 
@@ -74,17 +74,17 @@ const UpdateExchangeRateButton = () => {
         if (exchangeRate) updatedFields.exchangeRate = parseFloat(exchangeRate);
 
         if (Object.keys(updatedFields).length === 0) {
-            showMessage('Please fill at least one field to update.', 'error');
+            showMessage(`${t("fill_one_field_to_update")}`, 'error');
             return;
         }
 
         try {
             await updateExchangeRate(selectedExchangeId, updatedFields);
-            showMessage('Exchange rate updated successfully!', 'success');
+            showMessage(`${t("exchange_rate_updated_successfully")}`, 'success');
             triggerUpdate();
             handleDialogClose();
         } catch (error) {
-            const errorMessage = error.response?.data?.message || 'An unexpected error occurred';
+            const errorMessage = error.response?.data?.message || `${t("unexpected_error")}`;
             showMessage(errorMessage, 'error');
         }
     };
@@ -155,7 +155,7 @@ const UpdateExchangeRateButton = () => {
                         onKeyDown={handleKeyDown}
                     />
                 </DialogContent>
-                <DialogActions>
+                <DialogActions sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Button onClick={handleDialogClose} sx={{ backgroundColor: "#063852", color: 'white' }}>
                         {t("cancel")}
                     </Button>

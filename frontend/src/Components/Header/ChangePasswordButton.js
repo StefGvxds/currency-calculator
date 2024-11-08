@@ -9,8 +9,10 @@ import TextField from '@mui/material/TextField';
 import { updatePassword } from '../../Services/Api';
 import { AuthContext } from '../../Context/AuthContext';
 import { MessageContext } from '../../Context/MessageContext';
+import { useTranslation } from 'react-i18next';
 
 const ChangePasswordButton = ({ onClose }) => {
+    const { t } = useTranslation();
     const { userId } = useContext(AuthContext);
     const [open, setOpen] = useState(false);
     const [newPassword, setNewPassword] = useState('');
@@ -27,12 +29,12 @@ const ChangePasswordButton = ({ onClose }) => {
 
     const handleUpdatePassword = async () => {
         if (!newPassword || !confirmPassword) {
-            showMessage('Both password fields are required', 'error');
+            showMessage(`${t("password_fields_required")}`, 'error');
             return;
         }
 
         if (newPassword !== confirmPassword) {
-            showMessage('Passwords do not match', 'error');
+            showMessage(`${t("passwords_do_not_match")}`, 'error');
             return;
         }
 
@@ -40,10 +42,10 @@ const ChangePasswordButton = ({ onClose }) => {
             await updatePassword(userId, newPassword);
             console.log(newPassword);
             console.log(userId);
-            showMessage('Password updated successfully!', 'success');
+            showMessage(`${t("password_updated_successfully")}`, 'success');
             handleDialogClose();
         } catch (error) {
-            const errorMessage = error.response?.data?.message || 'An unexpected error occurred';
+            const errorMessage = error.response?.data?.message || `${t("unexpected_error")}`;
             showMessage(errorMessage, 'error');
         }
     };
@@ -84,7 +86,7 @@ const ChangePasswordButton = ({ onClose }) => {
                         onKeyDown={handleKeyDown}
                     />
                 </DialogContent>
-                <DialogActions>
+                <DialogActions sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Button onClick={handleDialogClose} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>Cancel</Button>
                     <Button onClick={handleUpdatePassword} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>Save</Button>
                 </DialogActions>

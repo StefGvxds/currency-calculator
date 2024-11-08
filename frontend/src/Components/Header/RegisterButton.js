@@ -30,21 +30,21 @@ const RegisterButton = () => {
 
     const handleRegister = async () => {
         if (!username || !password) {
-            showMessage('Username and Password are required.','error');
+            showMessage(`${t("username_password_required")}`,'error');
             return;
         }
 
         try {
             await registerUser({ username, password });
-            showMessage('Registration successful! You can now log in.','success');
+            showMessage(`${t("registration_successful")}`,'success');
             handleDialogClose();
         } catch (error) {
             let errorMessage;
 
             if (error.response?.data?.message?.includes('E11000 duplicate key error')) {
-                errorMessage = 'Username already exists. Please choose another one.';
+                errorMessage = `${t("username_exists")}`;
             } else {
-                errorMessage = error.response?.data?.message || 'An unexpected error occurred';
+                errorMessage = error.response?.data?.message || `${t("unexpected_error")}`;
             }
             showMessage(errorMessage, 'error');
         }
@@ -86,7 +86,7 @@ const RegisterButton = () => {
                         onKeyDown={handleKeyDown}
                     />
                 </DialogContent>
-                <DialogActions>
+                <DialogActions sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Button onClick={handleDialogClose} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>{t("cancel")}</Button>
                     <Button onClick={handleRegister} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>{t("register")}</Button>
                 </DialogActions>

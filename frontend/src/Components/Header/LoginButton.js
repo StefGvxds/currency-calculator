@@ -24,7 +24,7 @@ const LoginButton = ({onClose}) => {
 
     const handleLogin = async () => {
         if (!username || !password) {
-            showMessage('Username and Password are required.','error');
+            showMessage(`${t("username_password_required")}`,'error');
             return;
         }
 
@@ -33,10 +33,10 @@ const LoginButton = ({onClose}) => {
             const { token, userId } = response.data;
             login(username, token, userId);
             if (onClose) onClose();
-            showMessage('Login successful!','success');
+            showMessage(`${t("login_successful")}`,'success');
             handleDialogClose();
         } catch (error) {
-            showMessage('Login failed. Please check your credentials.','error');
+            showMessage(`${t("login_failed")}`,'error');
         }
     };
 
@@ -76,7 +76,7 @@ const LoginButton = ({onClose}) => {
                         onKeyDown={handleKeyDown}
                     />
                 </DialogContent>
-                <DialogActions>
+                <DialogActions sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Button onClick={handleDialogClose} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>{t("cancel")}</Button>
                     <Button onClick={handleLogin} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>{t("login")}</Button>
                 </DialogActions>
