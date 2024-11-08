@@ -6,11 +6,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Typography from '@mui/material/Typography';
 import Popover from '@mui/material/Popover';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-
 
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
+import RegisterButton from './RegisterButton';
+import ChangeUsernameButton from './ChangeUsernameButton';
+import ChangePasswordButton from './ChangePasswordButton';
+import DeleteAccountButton from "./DeleteAccountButton";
 import { AuthContext } from '../../Context/AuthContext';
 
 const Header = props => {
@@ -33,7 +35,7 @@ const Header = props => {
     /**
      *  Manage Login (username)
      */
-    const { isAuthenticated, username, logout } = useContext(AuthContext);
+    const { isAuthenticated, username } = useContext(AuthContext);
 
     return (
         <AppBar position="static" sx={{ backgroundColor: '#011A27' }}>
@@ -66,9 +68,17 @@ const Header = props => {
                 >
                     <Box sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                         {isAuthenticated ? (
-                            <LogoutButton onClose={handleClose} />
+                            <>
+                                <ChangeUsernameButton onClose={handleClose} />
+                                {/*<ChangePasswordButton onClose={handleClose} />*/}
+                                <LogoutButton onClose={handleClose} />
+                                <DeleteAccountButton onClose={handleClose} />
+                            </>
                         ) : (
-                            <LoginButton onClose={handleClose} />
+                            <>
+                                <LoginButton onClose={handleClose} />
+                                <RegisterButton onClose={handleClose} />
+                            </>
                         )}
                     </Box>
                 </Popover>

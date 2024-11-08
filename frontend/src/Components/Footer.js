@@ -16,7 +16,7 @@ const Footer = () => {
                 borderTop: '1px solid #ddd',
             }}
         >
-            <Typography variant="body2" color="textSecondary">
+            <Typography variant="h6" color="textSecondary">
                 {'© '}
                 {new Date().getFullYear()} {' '}
                 Stefanos Gavouchidis -{' '}

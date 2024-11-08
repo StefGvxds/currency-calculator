@@ -1,23 +1,26 @@
 import React from 'react';
-import Box from '@mui/material/Box';
+import {Stack, Box, Typography} from '@mui/material';
 import Image from '../Assets/currencyEx.webp';
+
+
+import SettingBox from "../Components/SettingBox";
 import CurrencyBox from "../Components/CurrencyBox";
+
 
 const MainScreen = () => {
     return (
-        <Box sx={{ height: '100vh' }}>
+        <Box sx={{ height: '30vh' }}>
             <Box
                 sx={{
                     position: 'relative',
                     width: '100%',
-                    height: '40vh',
+                    height: '30vh',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: 'white',
                     fontSize: '2rem',
                     textAlign: 'center',
-                    overflow: 'hidden', // um sicherzustellen, dass Inhalte nicht außerhalb der Box sind
                 }}
             >
                 {/* Hintergrund-Box */}
@@ -27,7 +30,7 @@ const MainScreen = () => {
                         top: 0,
                         left: 0,
                         width: '100%',
-                        height: '100%',
+                        height: '30vh',
                         backgroundImage: `url(${Image})`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
@@ -47,10 +50,9 @@ const MainScreen = () => {
                 />
                 {/* Text auf dem Hintergrund */}
                 <Box sx={{ position: 'relative' }}>
-                    <div>Convert currency</div>
+                    <Typography variant="h3">Convert currency</Typography>
                 </Box>
             </Box>
-            <CurrencyBox/>
         </Box>
     );
 }

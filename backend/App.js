@@ -1,4 +1,5 @@
 import express from 'express';
+
 //Loads the .env file with the environment variables
 import dotenv from 'dotenv';
 dotenv.config();

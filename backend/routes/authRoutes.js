@@ -6,7 +6,9 @@ import protect from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// Login-Endpoint
+/**
+ * Login-Endpoint
+ */
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
@@ -20,13 +22,18 @@ router.post('/login', async (req, res) => {
             expiresIn: '1h'
         });
 
-        res.json({ token });
+        console.log("Login response data:", { token, userId: user._id, username: user.username });
+
+
+        res.json({ token, userId: user._id, username: user.username });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
 
-// Registering a new user
+/**
+ * Registering a new user
+ */
 router.post('/register', async (req, res) => {
     const { username, password } = req.body;
 
@@ -39,8 +46,10 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// Delete user
-// Only authenticated users can access this function >protect<
+/**
+ * Delete user
+ * Only authenticated users can access this function >protect<
+ */
 router.delete('/user/:id', protect, async (req, res) => {
     try {
         await User.findByIdAndDelete(req.params.id);
@@ -50,8 +59,10 @@ router.delete('/user/:id', protect, async (req, res) => {
     }
 });
 
-// Change password
-// Only authenticated users can access this function >protect<
+/**
+ * Change password
+ * Only authenticated users can access this function >protect<
+ */
 router.put('/user/:id/password', protect, async (req, res) => {
     const { newPassword } = req.body;
 
@@ -65,14 +76,17 @@ router.put('/user/:id/password', protect, async (req, res) => {
         user.password = await bcrypt.hash(newPassword, salt);
         await user.save();
 
+        console.log("User password after save:", user.password);
         res.json({ message: 'Password updated successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
 
-// Change username
-// Only authenticated users can access this function >protect<
+/**
+ * Change username
+ * Only authenticated users can access this function >protect<
+ */
 router.put('/user/:id/username', protect, async (req, res) => {
     const { newUsername } = req.body;
 

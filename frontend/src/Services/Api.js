@@ -10,9 +10,14 @@ export const updatePassword = (id, newPassword) => axiosInstance.put(`/auth/user
 
 export const loginUser = async (data) => {
     const response = await axiosInstance.post('/auth/login', data);
-    const { token, username } = response.data;
+    const { token, userId, username } = response.data;
+
+    console.log("API Response:", response.data);
+
     if (token) {
         localStorage.setItem('username', username);
+        localStorage.setItem('token', token);
+        localStorage.setItem('userId', userId);
     }
     return response;
 };
@@ -20,6 +25,7 @@ export const loginUser = async (data) => {
 export const logoutUser = () => {
     localStorage.removeItem('username');
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
 };
 
 /**
@@ -31,3 +37,5 @@ export const updateExchangeRate = (id, data) => axiosInstance.put(`/currency/${i
 export const deleteExchangeRate = (id) => axiosInstance.delete(`/currency/${id}`);
 export const convertCurrency = (data) => axiosInstance.post('/convert', data);
 export const convertCurrencyReverse = (data) => axiosInstance.post('/convert-reverse', data);
+
+
