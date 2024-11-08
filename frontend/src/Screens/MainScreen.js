@@ -3,7 +3,7 @@ import {Stack, Box, Typography} from '@mui/material';
 import Image from '../Assets/currencyEx.webp';
 
 
-import SettingBox from "../Components/SettingBox";
+import SettingBox from "../Components/SettingBox/SettingBox";
 import CurrencyBox from "../Components/CurrencyBox";
 
 

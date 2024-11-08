@@ -74,9 +74,9 @@ const CurrencyBox = () => {
         <Box
             sx={{
                 height: {
-                    xs: '40vh',
-                    sm: '40vh',
-                    md: '15vh'
+                    xs: '46vh',
+                    sm: '46vh',
+                    md: '22vh'
                 }
             }}
         >
