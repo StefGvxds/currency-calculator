@@ -1,13 +1,12 @@
 import React from 'react';
 import {Stack, Box, Typography} from '@mui/material';
 import Image from '../Assets/currencyEx.webp';
-
-
-import SettingBox from "../Components/SettingBox/SettingBox";
-import CurrencyBox from "../Components/CurrencyBox";
-
+import { useTranslation } from 'react-i18next';
 
 const MainScreen = () => {
+
+    const { t } = useTranslation();
+
     return (
         <Box sx={{ height: '30vh' }}>
             <Box
@@ -50,7 +49,7 @@ const MainScreen = () => {
                 />
                 {/* Text auf dem Hintergrund */}
                 <Box sx={{ position: 'relative' }}>
-                    <Typography variant="h3">Convert currency</Typography>
+                    <Typography variant="h3">{t("convert_currency")}</Typography>
                 </Box>
             </Box>
         </Box>

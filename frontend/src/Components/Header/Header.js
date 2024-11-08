@@ -14,8 +14,13 @@ import ChangeUsernameButton from './ChangeUsernameButton';
 import ChangePasswordButton from './ChangePasswordButton';
 import DeleteAccountButton from "./DeleteAccountButton";
 import { AuthContext } from '../../Context/AuthContext';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from "../LanguageSwitcher";
 
 const Header = props => {
+
+    const { t } = useTranslation();
+
     /**
      * Manage the Popover
      */
@@ -38,19 +43,23 @@ const Header = props => {
     const { isAuthenticated, username } = useContext(AuthContext);
 
     return (
-        <AppBar position="static" sx={{ backgroundColor: '#011A27' }}>
+        <AppBar position="fixed" sx={{ backgroundColor: '#011A27' }}>
             <Toolbar>
                 {isAuthenticated ? (
-                    <Typography variant="h6">Welcome, {username}</Typography>
-                ) : null }
+                    <Typography variant="h6">{t('welcome')}, {username}</Typography>
+                ) : null}
+                <Box sx={{ ml: '20px' }} edge="start">
+                    <LanguageSwitcher />
+                </Box>
+
                 <IconButton
                     edge="end"
                     color="inherit"
                     aria-label="menu"
-                    sx={{ ml: 'auto' }}
+                    sx={{ml: 'auto'}}
                     onClick={handleClick}
                 >
-                    <MenuIcon />
+                    <MenuIcon/>
                 </IconButton>
                 <Popover
                     id={id}
@@ -66,18 +75,18 @@ const Header = props => {
                         horizontal: 'right',
                     }}
                 >
-                    <Box sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                    <Box sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
                         {isAuthenticated ? (
                             <>
-                                <ChangeUsernameButton onClose={handleClose} />
+                                <ChangeUsernameButton onClose={handleClose}/>
                                 {/*<ChangePasswordButton onClose={handleClose} />*/}
-                                <LogoutButton onClose={handleClose} />
-                                <DeleteAccountButton onClose={handleClose} />
+                                <LogoutButton onClose={handleClose}/>
+                                <DeleteAccountButton onClose={handleClose}/>
                             </>
                         ) : (
                             <>
-                                <LoginButton onClose={handleClose} />
-                                <RegisterButton onClose={handleClose} />
+                                <LoginButton onClose={handleClose}/>
+                                <RegisterButton onClose={handleClose}/>
                             </>
                         )}
                     </Box>

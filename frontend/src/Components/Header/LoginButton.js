@@ -9,8 +9,10 @@ import TextField from '@mui/material/TextField';
 import { loginUser } from '../../Services/Api';
 import { AuthContext } from '../../Context/AuthContext';
 import { MessageContext } from '../../Context/MessageContext';
+import { useTranslation } from 'react-i18next';
 
 const LoginButton = ({onClose}) => {
+    const { t } = useTranslation();
     const { showMessage } = useContext(MessageContext);
     const { login } = useContext(AuthContext);
     const [open, setOpen] = useState(false);
@@ -48,18 +50,17 @@ const LoginButton = ({onClose}) => {
     return (
         <>
             <Button variant="contained" onClick={handleDialogOpen} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>
-                Login
+                {t("login")}
             </Button>
 
             {/* Dialog for login */}
             <Dialog open={open} onClose={handleDialogClose}>
-                <DialogTitle>Login</DialogTitle>
+                <DialogTitle>{t("login")}</DialogTitle>
                 <DialogContent>
                     <TextField
                         autoFocus
                         margin="dense"
-                        label="Username"
-                        type="text"
+                        label={t("username")}
                         fullWidth
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
@@ -67,7 +68,7 @@ const LoginButton = ({onClose}) => {
                     />
                     <TextField
                         margin="dense"
-                        label="Password"
+                        label={t("password")}
                         type="password"
                         fullWidth
                         value={password}
@@ -76,8 +77,8 @@ const LoginButton = ({onClose}) => {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleDialogClose} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>Cancel</Button>
-                    <Button onClick={handleLogin} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>Login</Button>
+                    <Button onClick={handleDialogClose} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>{t("cancel")}</Button>
+                    <Button onClick={handleLogin} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>{t("login")}</Button>
                 </DialogActions>
             </Dialog>
         </>

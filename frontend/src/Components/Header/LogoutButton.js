@@ -4,8 +4,10 @@ import Button from '@mui/material/Button';
 import { logoutUser } from '../../Services/Api';
 import { AuthContext } from '../../Context/AuthContext';
 import { MessageContext } from '../../Context/MessageContext';
+import { useTranslation } from 'react-i18next';
 
 const LogoutButton = ({onClose}) => {
+    const { t } = useTranslation();
     const { logout } = useContext(AuthContext);
     const { showMessage } = useContext(MessageContext);
 
@@ -20,7 +22,7 @@ const LogoutButton = ({onClose}) => {
 
         <>
             <Button onClick={handleLogout} variant="contained" sx={{ mb: 5, backgroundColor: "#063852", color: 'white' }}>
-                Logout
+                {t("logout")}
             </Button>
         </>
     );

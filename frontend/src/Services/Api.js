@@ -1,4 +1,5 @@
 import axiosInstance from './axiosInstance';
+import {useTranslation} from "react-i18next";
 
 /**
  * User APIs
@@ -37,5 +38,11 @@ export const updateExchangeRate = (id, data) => axiosInstance.put(`/currency/${i
 export const deleteExchangeRate = (id) => axiosInstance.delete(`/currency/${id}`);
 export const convertCurrency = (data) => axiosInstance.post('/convert', data);
 export const convertCurrencyReverse = (data) => axiosInstance.post('/convert-reverse', data);
+
+//import { useTranslation } from 'react-i18next';
+//const { t } = useTranslation();
+
+//showMessage
+//Button LInks
 
 

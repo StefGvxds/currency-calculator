@@ -1,10 +1,22 @@
 import React, { useState, useContext } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    TextField,
+} from '@mui/material';
+
 import { addExchangeRate } from '../../Services/Api';
+import { AuthContext } from '../../Context/AuthContext';
 import { MessageContext } from '../../Context/MessageContext';
 import { CurrencyUpdateContext } from '../../Context/CurrencyUpdateContext';
+import { useTranslation } from 'react-i18next';
 
 const AddExchangeRateButton = () => {
+    const { t } = useTranslation();
+    const { isAuthenticated } = useContext(AuthContext);
     const { showMessage } = useContext(MessageContext);
     const { triggerUpdate } = useContext(CurrencyUpdateContext);
 
@@ -13,6 +25,7 @@ const AddExchangeRateButton = () => {
     const [targetCurrency, setTargetCurrency] = useState('');
     const [exchangeRate, setExchangeRate] = useState('');
 
+    // Open and close dialogs
     const handleDialogOpen = () => setDialogOpen(true);
     const handleDialogClose = () => {
         setDialogOpen(false);
@@ -21,6 +34,7 @@ const AddExchangeRateButton = () => {
         setExchangeRate('');
     };
 
+    // Submit the new exchange rate
     const handleAddExchangeRate = async () => {
         if (!baseCurrency || !targetCurrency || !exchangeRate) {
             showMessage('All fields are required.', 'error');
@@ -38,29 +52,33 @@ const AddExchangeRateButton = () => {
         }
     };
 
+    // Submit on Enter key press
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             handleAddExchangeRate();
         }
     };
 
+    // Render component only if authenticated
+    if (!isAuthenticated) return null;
     return (
         <>
             <Button
                 variant="contained"
                 color="primary"
                 onClick={handleDialogOpen}
-                sx={{ mb: 2, backgroundColor: "#063852", color: 'white' }}
+                sx={{ backgroundColor: "#063852", color: 'white', width: '350px' }}
             >
-                Add New Exchange Rate
+                {t("add_new_exchange_rate")}
             </Button>
+            {/* Dialog for adding a new exchange rate */}
             <Dialog open={dialogOpen} onClose={handleDialogClose}>
-                <DialogTitle>Add New Exchange Rate</DialogTitle>
+                <DialogTitle>{t("add_new_exchange_rate")}</DialogTitle>
                 <DialogContent>
                     <TextField
                         autoFocus
                         margin="dense"
-                        label="Base Currency"
+                        label={t("base_currency")}
                         type="text"
                         fullWidth
                         value={baseCurrency}
@@ -69,7 +87,7 @@ const AddExchangeRateButton = () => {
                     />
                     <TextField
                         margin="dense"
-                        label="Target Currency"
+                        label={t("target_currency")}
                         type="text"
                         fullWidth
                         value={targetCurrency}
@@ -78,7 +96,7 @@ const AddExchangeRateButton = () => {
                     />
                     <TextField
                         margin="dense"
-                        label="Exchange Rate"
+                        label={t("exchange_rate")}
                         type="number"
                         fullWidth
                         value={exchangeRate}
@@ -88,15 +106,15 @@ const AddExchangeRateButton = () => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleDialogClose} sx={{ backgroundColor: "#063852", color: 'white' }}>
-                        Cancel
+                        {t("cancel")}
                     </Button>
                     <Button onClick={handleAddExchangeRate} sx={{ backgroundColor: "#063852", color: 'white' }}>
-                        Submit
+                        {t("submit")}
                     </Button>
                 </DialogActions>
             </Dialog>
         </>
     );
-};
+}
 
 export default AddExchangeRateButton;

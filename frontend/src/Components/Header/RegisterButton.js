@@ -10,10 +10,12 @@ import TextField from '@mui/material/TextField';
 
 import { registerUser } from '../../Services/Api';
 import { MessageContext } from '../../Context/MessageContext';
+import { useTranslation } from 'react-i18next';
 
 const RegisterButton = () => {
 
     const { showMessage } = useContext(MessageContext);
+    const { t } = useTranslation();
 
     const [open, setOpen] = useState(false);
     const [username, setUsername] = useState('');
@@ -57,17 +59,17 @@ const RegisterButton = () => {
     return (
         <>
             <Button variant="contained" onClick={handleDialogOpen} sx={{ mb: 1, backgroundColor: "#F0810F", color: '#063852' }}>
-                Register
+                {t("register")}
             </Button>
 
             {/* Dialog for registration */}
             <Dialog open={open} onClose={handleDialogClose}>
-                <DialogTitle>Register</DialogTitle>
+                <DialogTitle>{t("register")}</DialogTitle>
                 <DialogContent>
                     <TextField
                         autoFocus
                         margin="dense"
-                        label="Username"
+                        label={t("username")}
                         type="text"
                         fullWidth
                         value={username}
@@ -76,7 +78,7 @@ const RegisterButton = () => {
                     />
                     <TextField
                         margin="dense"
-                        label="Password"
+                        label={t("password")}
                         type="password"
                         fullWidth
                         value={password}
@@ -85,8 +87,8 @@ const RegisterButton = () => {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleDialogClose} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>Cancel</Button>
-                    <Button onClick={handleRegister} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>Register</Button>
+                    <Button onClick={handleDialogClose} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>{t("cancel")}</Button>
+                    <Button onClick={handleRegister} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>{t("register")}</Button>
                 </DialogActions>
             </Dialog>
         </>

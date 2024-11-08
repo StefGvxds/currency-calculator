@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
+import {TextField, Typography, MenuItem, Button} from "@mui/material";
+
 import { fetchAllExchangeRates, convertCurrency, convertCurrencyReverse } from '../Services/Api';
 import { MessageContext } from '../Context/MessageContext';
+import { useTranslation } from 'react-i18next';
 
 const CurrencyBox = () => {
+    const { t } = useTranslation();
     const { showMessage } = useContext(MessageContext);
     const [amount, setAmount] = useState("");
     const [baseCurrency, setBaseCurrency] = useState("");
@@ -106,7 +107,7 @@ const CurrencyBox = () => {
                     }}
                 >
                     <TextField
-                        label="Amount"
+                        label={t("amount")}
                         type="number"
                         variant="outlined"
                         value={amount}
@@ -114,7 +115,7 @@ const CurrencyBox = () => {
                         sx={{ width: { xs: '100%', md: '20%' } }}
                     />
                     <TextField
-                        label="Base Currency"
+                        label={t("base_currency")}
                         select
                         variant="outlined"
                         value={baseCurrency}
@@ -135,7 +136,7 @@ const CurrencyBox = () => {
                         ⇄
                     </Button>
                     <TextField
-                        label="Target Currency"
+                        label={t("target_currency")}
                         select
                         variant="outlined"
                         value={targetCurrency}
@@ -158,13 +159,15 @@ const CurrencyBox = () => {
                             width: { xs: '100%', md: 'auto' }
                         }}
                     >
-                        Convert
+                        {t("convert")}
                     </Button>
                 </Box>
 
                 {conversionResult && (
-                    <Box mt={3}>
-                        <h3>Conversion Result: {conversionResult}</h3>
+                    <Box mt={3} sx={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <Typography variant="h5">
+                            {t("conversion_result")}: {conversionResult}
+                        </Typography>
                     </Box>
                 )}
             </Box>

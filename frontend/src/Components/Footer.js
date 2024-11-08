@@ -2,8 +2,12 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+
+    const { t } = useTranslation();
+
     return (
         <Box
             component="footer"
@@ -21,7 +25,7 @@ const Footer = () => {
                 {new Date().getFullYear()} {' '}
                 Stefanos Gavouchidis -{' '}
                 <Link color="inherit" href="https://gavouchidis.com" target="_blank" rel="noopener noreferrer">
-                    Visit my Portfolio
+                    {t("visit_portfolio")}
                 </Link>
             </Typography>
         </Box>

@@ -9,8 +9,10 @@ import TextField from '@mui/material/TextField';
 import { updateUsername } from '../../Services/Api';
 import { AuthContext } from '../../Context/AuthContext';
 import { MessageContext } from '../../Context/MessageContext';
+import { useTranslation } from 'react-i18next';
 
 const ChangeUsernameButton = ({ onClose }) => {
+    const { t } = useTranslation();
     const { userId, setUsername } = useContext(AuthContext); // userId und setUsername aus AuthContext
     const [open, setOpen] = useState(false);
     const [newUsername, setNewUsername] = useState('');
@@ -55,17 +57,17 @@ const ChangeUsernameButton = ({ onClose }) => {
     return (
         <>
             <Button variant="contained" onClick={handleDialogOpen} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>
-                Change Username
+                {t("change_username")}
             </Button>
 
             {/* Dialog for changing username */}
             <Dialog open={open} onClose={handleDialogClose}>
-                <DialogTitle>Change Username</DialogTitle>
+                <DialogTitle>{t("change_username")}</DialogTitle>
                 <DialogContent>
                     <TextField
                         autoFocus
                         margin="dense"
-                        label="New Username"
+                        label={t("new_username")}
                         type="text"
                         fullWidth
                         value={newUsername}
@@ -74,8 +76,8 @@ const ChangeUsernameButton = ({ onClose }) => {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleDialogClose} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>Cancel</Button>
-                    <Button onClick={handleUpdateUsername} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>Save</Button>
+                    <Button onClick={handleDialogClose} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>{t("cancel")}</Button>
+                    <Button onClick={handleUpdateUsername} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>{t("save")}</Button>
                 </DialogActions>
             </Dialog>
         </>

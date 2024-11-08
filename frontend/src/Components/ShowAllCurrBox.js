@@ -11,8 +11,10 @@ import Typography from "@mui/material/Typography";
 
 import { fetchAllExchangeRates } from '../Services/Api';
 import { CurrencyUpdateContext } from '../Context/CurrencyUpdateContext';
+import { useTranslation } from 'react-i18next';
 
 const ShowAllCurrBox = () => {
+    const {t} = useTranslation();
     const [exchangeRates, setExchangeRates] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -62,11 +64,6 @@ const ShowAllCurrBox = () => {
                         md: '80%'
                     },
                     height: '50%',
-                    // height: {
-                    //     xs: '20%',
-                    //     sm: '81%',
-                    //     md: '50%'
-                    // },
                     padding: '16px',
                     overflow: 'auto',
                 }}
@@ -80,17 +77,17 @@ const ShowAllCurrBox = () => {
                             <TableRow>
                                 <TableCell align="center" sx={{ fontWeight: 'bold' }}>
                                     <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                                        Base Currency
+                                        {t("base_currency")}
                                     </Typography>
                                 </TableCell>
                                 <TableCell align="center" sx={{ fontWeight: 'bold' }}>
                                     <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                                        Target Currency
+                                        {t("target_currency")}
                                     </Typography>
                                 </TableCell>
                                 <TableCell align="center" sx={{ fontWeight: 'bold' }}>
                                     <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                                        Exchange Rate
+                                        {t("exchange_rate")}
                                     </Typography>
                                 </TableCell>
                             </TableRow>
@@ -113,7 +110,7 @@ const ShowAllCurrBox = () => {
                             ) : (
                                 <TableRow>
                                     <TableCell colSpan={3} align="center">
-                                        No exchange rates available.
+                                        {t("no_exchange_rates_available")}
                                     </TableCell>
                                 </TableRow>
                             )}

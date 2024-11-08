@@ -8,8 +8,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { deleteUser } from '../../Services/Api';
 import { AuthContext } from '../../Context/AuthContext';
 import { MessageContext } from '../../Context/MessageContext';
+import { useTranslation } from 'react-i18next';
 
 const DeleteAccountButton = ({ onClose }) => {
+    const { t } = useTranslation();
     const { userId, logout } = useContext(AuthContext); // userId und logout aus AuthContext
     const [open, setOpen] = useState(false);
     const { showMessage } = useContext(MessageContext);
@@ -41,19 +43,19 @@ const DeleteAccountButton = ({ onClose }) => {
     return (
         <>
             <Button variant="contained" onClick={handleDialogOpen} sx={{ mb: 1, backgroundColor: "darkred", color: 'white' }}>
-                Delete Account
+                {t("delete_account")}
             </Button>
 
             {/* Dialog for account deletion confirmation */}
             <Dialog open={open} onClose={handleDialogClose}>
-                <DialogTitle>Confirm Account Deletion</DialogTitle>
+                <DialogTitle>{t("confirm_account_deletion")}</DialogTitle>
                 <DialogContent>
-                    Are you sure you want to delete your account? This action cannot be undone.
+                    {t("confirm_delete_message")}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleDialogClose} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>Cancel</Button>
+                    <Button onClick={handleDialogClose} sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}>{t("cancel")}</Button>
                     <Button onClick={handleDeleteAccount} sx={{ mb: 1, backgroundColor: "darkred", color: 'white' }} onKeyDown={handleKeyDown}>
-                        Confirm Delete
+                        {t("confirm_delete")}
                     </Button>
                 </DialogActions>
             </Dialog>
