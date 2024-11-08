@@ -5,8 +5,10 @@ import AddExchangeRateButton from './AddExchangeRateButton';
 import DeleteExchangeRateButton from './DeleteExchangeRateButton';
 import UpdateExchangeRateButton from './UpdateExchangeRateButton';
 import {AuthContext} from "../../Context/AuthContext";
+import { useTranslation } from 'react-i18next';
 
 const SettingBox = () => {
+    const { t } = useTranslation();
     const { isAuthenticated } = useContext(AuthContext);
 
     return (
@@ -46,7 +48,7 @@ const SettingBox = () => {
                 </Box>
             ) : (
               <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <Typography variant="h5" >You need to be logged in to make changes to the exchange rates.</Typography>
+                <Typography variant="h5" >{t("login_required_for_changes")}</Typography>
               </Box>
             )}
         </Box>
