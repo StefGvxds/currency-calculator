@@ -47,9 +47,8 @@ const SettingBox = () => {
                     <DeleteExchangeRateButton/>
                 </Box>
             ) : (
-              <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <Typography variant="h5" >{t("login_required_for_changes")}</Typography>
-              </Box>
+              <>
+              </>
             )}
         </Box>
     );

@@ -11,7 +11,6 @@ import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 import RegisterButton from './RegisterButton';
 import ChangeUsernameButton from './ChangeUsernameButton';
-import ChangePasswordButton from './ChangePasswordButton';
 import DeleteAccountButton from "./DeleteAccountButton";
 import { AuthContext } from '../../Context/AuthContext';
 import { useTranslation } from 'react-i18next';
@@ -79,7 +78,6 @@ const Header = props => {
                         {isAuthenticated ? (
                             <>
                                 <ChangeUsernameButton onClose={handleClose}/>
-                                {/*<ChangePasswordButton onClose={handleClose} />*/}
                                 <LogoutButton onClose={handleClose}/>
                                 <DeleteAccountButton onClose={handleClose}/>
                             </>

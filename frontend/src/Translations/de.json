@@ -57,6 +57,5 @@
   "error_loading_exchange_rates": "Fehler beim Laden der Wechselkurse.",
   "select_exchange_rate_to_update": "Bitte wählen Sie einen Wechselkurs zum Aktualisieren aus.",
   "fill_one_field_to_update": "Bitte füllen Sie mindestens ein Feld zum Aktualisieren aus.",
-  "exchange_rate_updated_successfully": "Wechselkurs erfolgreich aktualisiert!",
-  "login_required_for_changes": "Sie müssen angemeldet sein, um Änderungen an den Wechselkursen vorzunehmen."
+  "exchange_rate_updated_successfully": "Wechselkurs erfolgreich aktualisiert!"
 }
