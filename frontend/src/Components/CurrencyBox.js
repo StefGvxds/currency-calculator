@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
-import {TextField, Typography, MenuItem, Button} from "@mui/material";
+import { TextField, Typography, MenuItem, Button } from "@mui/material";
 
 import { fetchAllExchangeRates, convertCurrency, convertCurrencyReverse } from '../Services/Api';
 import { MessageContext } from '../Context/MessageContext';
@@ -28,6 +28,13 @@ const CurrencyBox = () => {
         };
         loadExchangeRates();
     }, [showMessage]);
+
+    // Filter unique base currencies
+    const uniqueBaseCurrencies = exchangeRates
+        .map(rate => rate.baseCurrency)
+        .filter((currency, index, self) => self.indexOf(currency) === index);
+
+
 
     // Update target currencies when base currency changes
     useEffect(() => {
@@ -121,9 +128,9 @@ const CurrencyBox = () => {
                         onChange={(e) => setBaseCurrency(e.target.value)}
                         sx={{ width: { xs: '100%', md: '20%' } }}
                     >
-                        {exchangeRates.map((rate, index) => (
-                            <MenuItem key={index} value={rate.baseCurrency}>
-                                {rate.baseCurrency}
+                        {uniqueBaseCurrencies.map((currency, index) => (
+                            <MenuItem key={index} value={currency}>
+                                {currency}
                             </MenuItem>
                         ))}
                     </TextField>
@@ -165,13 +172,12 @@ const CurrencyBox = () => {
                 {conversionResult && (
                     <Box mt={3} sx={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
                         <Typography variant="h5">
-                            {t("conversion_result")}: {conversionResult}
+                            {t("conversion_result")}: {Number(conversionResult).toFixed(4)}
                         </Typography>
                     </Box>
                 )}
             </Box>
         </Box>
-
     );
 };
 
