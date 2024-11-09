@@ -76,7 +76,7 @@ const CurrencyBox = () => {
             sx={{
                 height: {
                     xs: '46vh',
-                    sm: '46vh',
+                    sm: '52vh',
                     md: '22vh'
                 }
             }}
@@ -90,7 +90,6 @@ const CurrencyBox = () => {
                     backgroundColor: 'white',
                     borderRadius: '12px',
                     boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)',
-                    //textAlign: 'center',
                     width: '78%',
                     height: 'auto',
                     padding: 2,

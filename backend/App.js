@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 
 //Loads the .env file with the environment variables
 import dotenv from 'dotenv';
@@ -8,6 +9,13 @@ import currencyRoutes from './routes/currencyRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 
 const app = express();
+
+app.use(cors({
+    origin: 'http://localhost:3000', // Die URL deines Frontends
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+}));
+
 // Middleware for parsing JSON
 app.use(express.json());
 

@@ -10,9 +10,10 @@ const LanguageSwitcher = () => {
         i18n.changeLanguage(event.target.value);
     };
 
+    const language = i18n.language.split('-')[0];
+
     return (
         <FormControl
-            variant="outlined"
             size="small"
             sx={{ minWidth: 120, borderColor: 'white' }}
         >
@@ -25,7 +26,7 @@ const LanguageSwitcher = () => {
             <Select
                 labelId="language-select-label"
                 id="language-select"
-                value={i18n.language || 'en'}
+                value={language || 'en'}
                 onChange={changeLanguage}
                 label="Language"
                 sx={{
@@ -41,7 +42,7 @@ const LanguageSwitcher = () => {
                     },
                     width: '70px'
                 }}
-            >
+             variant="outlined">
                 <MenuItem value="en">EN</MenuItem>
                 <MenuItem value="de">DE</MenuItem>
                 <MenuItem value="el">EL</MenuItem>

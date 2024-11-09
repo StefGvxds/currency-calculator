@@ -15,8 +15,8 @@ const SettingBox = () => {
         <Box
             sx={{
                 height: {
-                    xs: '18vh',
-                    sm: '11vh',
+                    xs: '22vh',
+                    sm: '22vh',
                     md: '11vh'
                 }
             }}
