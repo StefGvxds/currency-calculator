@@ -47,16 +47,3 @@ export default MessageProvider;
  * showMessage('Further information.', 'info');   // blue
  * showMessage('Action successful!', 'success');   // green
  */
-
-//sx={{ mb: 1, backgroundColor: "#F0810F", color: '#063852' }}
-//sx={{ mb: 1, backgroundColor: "#063852", color: 'white' }}
-
-/**
- *     const handleKeyDown = (e) => {
- *         if (e.key === 'Enter') {
- *             handleRegister();
- *         }
- *     };
- *
- *     onKeyDown={handleKeyDown}
- */

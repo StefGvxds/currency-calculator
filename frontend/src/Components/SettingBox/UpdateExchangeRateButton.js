@@ -61,6 +61,16 @@ const UpdateExchangeRateButton = () => {
         }
     };
 
+    const isDuplicateExchangeRate = (base, target, id) => {
+        return exchangeRates.some(
+            (rate) =>
+                rate.baseCurrency === base &&
+                rate.targetCurrency === target &&
+                rate._id !== id // Sicherstellen, dass es ein anderer Eintrag ist
+        );
+    };
+
+
     // Funktion zum Aktualisieren der Exchange Rate
     const handleUpdateExchangeRate = async () => {
         if (!selectedExchangeId) {
@@ -68,9 +78,18 @@ const UpdateExchangeRateButton = () => {
             return;
         }
 
+        const cleanedBaseCurrency = baseCurrency.trim();
+        const cleanedTargetCurrency = targetCurrency.trim();
+
+        // Duplikat-Prüfung für Base und Target Currency
+        if (isDuplicateExchangeRate(cleanedBaseCurrency, cleanedTargetCurrency, selectedExchangeId)) {
+            showMessage(`${t("exchange_rate_already_exists")}`, 'error');
+            return;
+        }
+
         const updatedFields = {};
-        if (baseCurrency) updatedFields.baseCurrency = baseCurrency;
-        if (targetCurrency) updatedFields.targetCurrency = targetCurrency;
+        if (baseCurrency) updatedFields.baseCurrency = cleanedBaseCurrency;
+        if (targetCurrency) updatedFields.targetCurrency = cleanedTargetCurrency;
         if (exchangeRate) updatedFields.exchangeRate = parseFloat(exchangeRate);
 
         if (Object.keys(updatedFields).length === 0) {
@@ -120,11 +139,14 @@ const UpdateExchangeRateButton = () => {
                         onChange={(e) => handleExchangeSelect(e.target.value)}
                         margin="dense"
                     >
-                        {exchangeRates.map((rate) => (
-                            <MenuItem key={rate._id} value={rate._id}>
-                                {`${rate.baseCurrency} -> ${rate.targetCurrency} : ${rate.exchangeRate}`}
-                            </MenuItem>
-                        ))}
+                        {exchangeRates
+                            .slice() // Kopiere die Liste, um das Original nicht zu verändern
+                            .sort((a, b) => a.baseCurrency.localeCompare(b.baseCurrency)) // Sortiere nach baseCurrency
+                            .map((rate) => (
+                                <MenuItem key={rate._id} value={rate._id}>
+                                    {`${rate.baseCurrency} -> ${rate.targetCurrency} : ${rate.exchangeRate}`}
+                                </MenuItem>
+                            ))}
                     </TextField>
 
                     <TextField

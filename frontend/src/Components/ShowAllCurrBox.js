@@ -25,7 +25,8 @@ const ShowAllCurrBox = () => {
             setLoading(true);
             try {
                 const response = await fetchAllExchangeRates();
-                setExchangeRates(response.data);
+                const sortedData = response.data.sort((a, b) => a.baseCurrency.localeCompare(b.baseCurrency));
+                setExchangeRates(sortedData);
             } catch (error) {
                 console.error("Error fetching exchange rates:", error);
             } finally {

@@ -41,7 +41,7 @@
   "passwords_do_not_match": "Passwords do not match.",
   "password_updated_successfully": "Password updated successfully!",
   "complete_all_fields_before_switching": "Please complete all fields before switching.",
-  "error_reversing_currency_conversion": "Error reversing the currency conversion.",
+  "error_reversing_currency_conversion": "Reversing from the base currency to the target currency failed because a reverse rate from the target currency to the base currency does not exist.",
   "complete_all_fields_before_converting": "Please complete all fields before converting.",
   "error_converting_currency": "Error converting currency.",
   "account_deleted_successfully": "Account deleted successfully!",
@@ -59,5 +59,5 @@
   "select_exchange_rate_to_update": "Please select an exchange rate to update.",
   "fill_one_field_to_update": "Please fill at least one field to update.",
   "exchange_rate_updated_successfully": "Exchange rate updated successfully!",
-  "login_required_for_changes": "You need to be logged in to make changes to the exchange rates."
+  "exchange_rate_already_exists": "The exchange rate already exists."
 }

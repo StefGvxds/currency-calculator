@@ -8,7 +8,7 @@ import {
     TextField,
 } from '@mui/material';
 
-import { addExchangeRate } from '../../Services/Api';
+import { addExchangeRate, fetchAllExchangeRates } from '../../Services/Api';
 import { AuthContext } from '../../Context/AuthContext';
 import { MessageContext } from '../../Context/MessageContext';
 import { CurrencyUpdateContext } from '../../Context/CurrencyUpdateContext';
@@ -24,9 +24,24 @@ const AddExchangeRateButton = () => {
     const [baseCurrency, setBaseCurrency] = useState('');
     const [targetCurrency, setTargetCurrency] = useState('');
     const [exchangeRate, setExchangeRate] = useState('');
+    const [existingRates, setExistingRates] = useState([]);
+
+// Funktion zum Abrufen der vorhandenen Wechselkurse
+    const fetchExistingExchangeRates = async () => {
+        try {
+            const response = await fetchAllExchangeRates();
+            setExistingRates(response.data);
+        } catch (error) {
+            showMessage(`${t("error_loading_exchange_rates")}`, 'error');
+        }
+    };
 
     // Open and close dialogs
-    const handleDialogOpen = () => setDialogOpen(true);
+    const handleDialogOpen = async () => {
+        setDialogOpen(true);
+        await fetchExistingExchangeRates(); // Abrufen der vorhandenen Wechselkurse beim Öffnen des Dialogs
+    };
+
     const handleDialogClose = () => {
         setDialogOpen(false);
         setBaseCurrency('');
@@ -34,15 +49,30 @@ const AddExchangeRateButton = () => {
         setExchangeRate('');
     };
 
+    // Prüft, ob das Währungspaar bereits existiert
+    const isDuplicateRate = (base, target) => {
+        return existingRates.some(
+            (rate) =>
+                rate.baseCurrency === base && rate.targetCurrency === target
+        );
+    };
+
     // Submit the new exchange rate
     const handleAddExchangeRate = async () => {
+
+        const cleanedBaseCurrency = baseCurrency.trim();
+        const cleanedTargetCurrency = targetCurrency.trim();
+
         if (!baseCurrency || !targetCurrency || !exchangeRate) {
             showMessage(`${t("all_fields_required")}`, 'error');
+            return;
+        } else if (isDuplicateRate(cleanedBaseCurrency, cleanedTargetCurrency)) {
+            showMessage(`${t("exchange_rate_already_exists")}`, 'error');
             return;
         }
 
         try {
-            await addExchangeRate({ baseCurrency, targetCurrency, exchangeRate: parseFloat(exchangeRate) });
+            await addExchangeRate({ baseCurrency: cleanedBaseCurrency, targetCurrency: cleanedTargetCurrency, exchangeRate: parseFloat(exchangeRate) });
             showMessage(`${t("exchange_rate_added")}`, 'success');
             triggerUpdate();
             handleDialogClose();

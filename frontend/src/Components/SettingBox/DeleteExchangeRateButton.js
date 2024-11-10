@@ -84,14 +84,35 @@ const DeleteExchangeRateButton = () => {
                             value={selectedRates}
                             onChange={(e) => setSelectedRates(e.target.value)}
                             renderValue={(selected) => selected.map(id => `ID: ${id}`).join(', ')}
+                            MenuProps={{
+                                PaperProps: {
+                                    style: {
+                                        maxHeight: 400, // Begrenze die Höhe des Dropdown-Menüs
+                                        overflowY: 'auto',
+                                    },
+                                },
+                                getContentAnchorEl: null, // Verhindert das Andocken des Dropdowns
+                                anchorOrigin: {
+                                    vertical: 'bottom',
+                                    horizontal: 'right',
+                                },
+                                transformOrigin: {
+                                    vertical: 'top',
+                                    horizontal: 'left',
+                                },
+                            }}
                         >
-                            {exchangeRates.map((rate) => (
-                                <MenuItem key={rate._id} value={rate._id}>
-                                    {rate.baseCurrency} to {rate.targetCurrency} - {rate.exchangeRate}
-                                </MenuItem>
-                            ))}
+                            {exchangeRates
+                                .slice() // Erstelle eine Kopie der Liste, um das Original nicht zu verändern
+                                .sort((a, b) => a.baseCurrency.localeCompare(b.baseCurrency)) // Sortiere alphabetisch nach baseCurrency
+                                .map((rate) => (
+                                    <MenuItem key={rate._id} value={rate._id}>
+                                        {`${rate.baseCurrency} to ${rate.targetCurrency} - ${rate.exchangeRate}`}
+                                    </MenuItem>
+                                ))}
                         </Select>
                     </FormControl>
+
                 </DialogContent>
                 <DialogActions sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Button onClick={handleDeleteDialogClose} sx={{ backgroundColor: "#063852", color: 'white' }}>

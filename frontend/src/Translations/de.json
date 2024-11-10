@@ -41,7 +41,7 @@
   "passwords_do_not_match": "Die Passwörter stimmen nicht überein.",
   "password_updated_successfully": "Passwort erfolgreich aktualisiert!",
   "complete_all_fields_before_switching": "Bitte füllen Sie alle Felder aus, bevor Sie wechseln.",
-  "error_reversing_currency_conversion": "Fehler beim Umkehren der Währungsumrechnung.",
+  "error_reversing_currency_conversion": "Das Vertauschen von Ausgangswährung und Zielwährung ist fehlgeschlagen, da ein Umkehrkurs von der Zielwährung zur Ausgangswährung nicht existiert.“",
   "complete_all_fields_before_converting": "Bitte füllen Sie alle Felder aus, bevor Sie konvertieren.",
   "error_converting_currency": "Fehler bei der Währungsumrechnung.",
   "account_deleted_successfully": "Konto erfolgreich gelöscht!",
@@ -57,5 +57,6 @@
   "error_loading_exchange_rates": "Fehler beim Laden der Wechselkurse.",
   "select_exchange_rate_to_update": "Bitte wählen Sie einen Wechselkurs zum Aktualisieren aus.",
   "fill_one_field_to_update": "Bitte füllen Sie mindestens ein Feld zum Aktualisieren aus.",
-  "exchange_rate_updated_successfully": "Wechselkurs erfolgreich aktualisiert!"
+  "exchange_rate_updated_successfully": "Wechselkurs erfolgreich aktualisiert!",
+  "exchange_rate_already_exists": "Der Wechselkurs existiert bereits."
 }

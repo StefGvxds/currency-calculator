@@ -128,10 +128,13 @@ const CurrencyBox = () => {
                         onChange={(e) => setBaseCurrency(e.target.value)}
                         sx={{ width: { xs: '100%', md: '20%' } }}
                     >
-                        {uniqueBaseCurrencies.map((currency, index) => (
-                            <MenuItem key={index} value={currency}>
-                                {currency}
-                            </MenuItem>
+                        {uniqueBaseCurrencies
+                            .slice() // Erstelle eine Kopie, um die originale Liste nicht zu verändern
+                            .sort((a, b) => a.localeCompare(b)) // Sortiere alphabetisch
+                            .map((currency, index) => (
+                                <MenuItem key={index} value={currency}>
+                                    {currency}
+                                </MenuItem>
                         ))}
                     </TextField>
                     <Button
@@ -150,10 +153,13 @@ const CurrencyBox = () => {
                         sx={{ width: { xs: '100%', md: '20%' } }}
                         disabled={!baseCurrency}
                     >
-                        {targetCurrencies.map((currency, index) => (
-                            <MenuItem key={index} value={currency}>
-                                {currency}
-                            </MenuItem>
+                        {targetCurrencies
+                            .slice() // Erstelle eine Kopie, um die originale Liste nicht zu verändern
+                            .sort((a, b) => a.localeCompare(b)) // Sortiere alphabetisch
+                            .map((currency, index) => (
+                                <MenuItem key={index} value={currency}>
+                                    {currency}
+                                </MenuItem>
                         ))}
                     </TextField>
                     <Button
