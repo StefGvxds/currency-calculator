@@ -1,5 +1,3 @@
-// src/Components/RegisterButton.js
-
 import React, { useState, useContext } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -21,6 +19,9 @@ const RegisterButton = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    /**
+     * Handle Dialog
+     */
     const handleDialogOpen = () => setOpen(true);
     const handleDialogClose = () => {
         setOpen(false);
@@ -28,6 +29,9 @@ const RegisterButton = () => {
         setPassword('');
     };
 
+    /**
+     * Handles registration, validating input and calling the API
+     */
     const handleRegister = async () => {
         if (!username || !password) {
             showMessage(`${t("username_password_required")}`,'error');
@@ -50,6 +54,10 @@ const RegisterButton = () => {
         }
     };
 
+    /**
+     * Allows pressing Enter to submit the registration form
+     * @param e
+     */
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             handleRegister();

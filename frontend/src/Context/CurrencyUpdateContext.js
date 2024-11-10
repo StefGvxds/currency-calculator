@@ -1,16 +1,22 @@
-// src/Context/CurrencyUpdateContext.js
-
 import React, { createContext, useState, useCallback } from 'react';
 
-// Erstelle den CurrencyUpdateContext
+/**
+ * Create a new context for currency updates
+ * @type {React.Context<unknown>}
+ */
 export const CurrencyUpdateContext = createContext();
 
+/**
+ * Provider component to manage and provide currency update functionality to the application
+ * @param children
+ * @returns {Element}
+ * @constructor
+ */
 const CurrencyUpdateProvider = ({ children }) => {
     const [updateTrigger, setUpdateTrigger] = useState(false);
 
-    // Funktion, um den Status umzuschalten und damit ein Update auszulösen
     const triggerUpdate = useCallback(() => {
-        setUpdateTrigger(prev => !prev); // Toggeln des Status, um neu zu rendern
+        setUpdateTrigger(prev => !prev);
     }, []);
 
     return (

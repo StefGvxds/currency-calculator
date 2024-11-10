@@ -27,13 +27,18 @@ const DeleteExchangeRateButton = () => {
     const [exchangeRates, setExchangeRates] = useState([]);
     const [selectedRates, setSelectedRates] = useState([]);
 
+    /**
+     * Handle Dialog
+     */
     const handleDeleteDialogOpen = () => setDeleteDialogOpen(true);
     const handleDeleteDialogClose = () => {
         setDeleteDialogOpen(false);
         setSelectedRates([]);
     };
 
-    // Fetch all exchange rates to populate the dropdown
+    /**
+     * Fetches all exchange rates from the server when the component mounts or updates
+     */
     useEffect(() => {
         const fetchExchangeRates = async () => {
             try {
@@ -46,8 +51,10 @@ const DeleteExchangeRateButton = () => {
         fetchExchangeRates();
     }, [triggerUpdate, showMessage]);
 
-
-    // Delete selected exchange rates one by one
+    /**
+     * Handles the deletion of selected exchange rates
+     * @returns {Promise<void>}
+     */
     const handleDeleteExchangeRates = async () => {
         for (let id of selectedRates) {
             try {
@@ -62,7 +69,11 @@ const DeleteExchangeRateButton = () => {
         handleDeleteDialogClose();
     };
 
+    /**
+     * Render nothing if the user is not authenticated
+     */
     if (!isAuthenticated) return null;
+    
     return(
         <>
             <Button
@@ -87,11 +98,11 @@ const DeleteExchangeRateButton = () => {
                             MenuProps={{
                                 PaperProps: {
                                     style: {
-                                        maxHeight: 400, // Begrenze die Höhe des Dropdown-Menüs
+                                        maxHeight: 400,
                                         overflowY: 'auto',
                                     },
                                 },
-                                getContentAnchorEl: null, // Verhindert das Andocken des Dropdowns
+                                getContentAnchorEl: null,
                                 anchorOrigin: {
                                     vertical: 'bottom',
                                     horizontal: 'right',
@@ -103,8 +114,8 @@ const DeleteExchangeRateButton = () => {
                             }}
                         >
                             {exchangeRates
-                                .slice() // Erstelle eine Kopie der Liste, um das Original nicht zu verändern
-                                .sort((a, b) => a.baseCurrency.localeCompare(b.baseCurrency)) // Sortiere alphabetisch nach baseCurrency
+                                .slice()
+                                .sort((a, b) => a.baseCurrency.localeCompare(b.baseCurrency))
                                 .map((rate) => (
                                     <MenuItem key={rate._id} value={rate._id}>
                                         {`${rate.baseCurrency} to ${rate.targetCurrency} - ${rate.exchangeRate}`}

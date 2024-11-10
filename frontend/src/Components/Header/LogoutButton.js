@@ -11,6 +11,9 @@ const LogoutButton = ({onClose}) => {
     const { logout } = useContext(AuthContext);
     const { showMessage } = useContext(MessageContext);
 
+    /**
+     * Function to handle user logout
+     */
     const handleLogout = () => {
         logoutUser();
         logout();

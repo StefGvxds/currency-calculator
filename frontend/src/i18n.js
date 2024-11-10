@@ -2,14 +2,19 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-// Übersetzungsdateien importieren
+/**
+ * Import JSON files containing translations for each language
+ */
 import translationEN from './Translations/en.json';
 import translationDE from './Translations/de.json';
 import translationEL from './Translations/el.json';
 
+/**
+ * Initialize i18n with language detector and React integration
+ */
 i18n
-    .use(LanguageDetector)   // Spracherkennung
-    .use(initReactI18next)    // Integration mit React
+    .use(LanguageDetector)
+    .use(initReactI18next)
     .init({
         resources: {
             en: { translation: translationEN },

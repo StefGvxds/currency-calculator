@@ -19,9 +19,16 @@ const LoginButton = ({onClose}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    /**
+     * Handle login dialog
+     */
     const handleDialogOpen = () => setOpen(true);
     const handleDialogClose = () => setOpen(false);
 
+    /**
+     * Handles the login process, validating input and calling the API
+     * @returns {Promise<void>}
+     */
     const handleLogin = async () => {
         if (!username || !password) {
             showMessage(`${t("username_password_required")}`,'error');
@@ -40,7 +47,10 @@ const LoginButton = ({onClose}) => {
         }
     };
 
-    // Check for Enter key and trigger login
+    /**
+     * Allows pressing Enter to submit the login form
+     * @param event
+     */
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             handleLogin();
@@ -53,7 +63,6 @@ const LoginButton = ({onClose}) => {
                 {t("login")}
             </Button>
 
-            {/* Dialog for login */}
             <Dialog open={open} onClose={handleDialogClose}>
                 <DialogTitle>{t("login")}</DialogTitle>
                 <DialogContent>

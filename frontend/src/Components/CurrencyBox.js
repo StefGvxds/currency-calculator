@@ -16,7 +16,9 @@ const CurrencyBox = () => {
     const [targetCurrencies, setTargetCurrencies] = useState([]);
     const [conversionResult, setConversionResult] = useState(null);
 
-    // Load all exchange rates
+    /**
+     * Fetches all exchange rates from the server when the component mounts
+     */
     useEffect(() => {
         const loadExchangeRates = async () => {
             try {
@@ -29,14 +31,17 @@ const CurrencyBox = () => {
         loadExchangeRates();
     }, [showMessage]);
 
-    // Filter unique base currencies
+    /**
+     * Generates a list of unique base currencies from fetched exchange rates
+     * @type {*[]}
+     */
     const uniqueBaseCurrencies = exchangeRates
         .map(rate => rate.baseCurrency)
         .filter((currency, index, self) => self.indexOf(currency) === index);
 
-
-
-    // Update target currencies when base currency changes
+    /**
+     * Updates the list of possible target currencies when a base currency is selected
+     */
     useEffect(() => {
         if (baseCurrency) {
             const filteredRates = exchangeRates
@@ -48,6 +53,10 @@ const CurrencyBox = () => {
         }
     }, [baseCurrency, exchangeRates]);
 
+    /**
+     * Switches base and target currencies and performs a reverse conversion
+     * @returns {Promise<void>}
+     */
     const handleSwitchCurrencies = async () => {
         if (!amount || !baseCurrency || !targetCurrency) {
             showMessage(`${t("complete_all_fields_before_switching")}`, "error");
@@ -64,6 +73,10 @@ const CurrencyBox = () => {
         }
     };
 
+    /**
+     * Handles currency conversion based on selected base and target currencies and amount
+     * @returns {Promise<void>}
+     */
     const handleConvert = async () => {
         if (!amount || !baseCurrency || !targetCurrency) {
             showMessage(`${t("complete_all_fields_before_converting")}`, "error");
@@ -106,7 +119,7 @@ const CurrencyBox = () => {
                 <Box
                     sx={{
                         display: 'flex',
-                        flexDirection: { xs: 'column', md: 'row' }, // column on xs, row on md and larger
+                        flexDirection: { xs: 'column', md: 'row' },
                         alignItems: 'center',
                         gap: 2,
                         justifyContent: 'center'
@@ -129,8 +142,8 @@ const CurrencyBox = () => {
                         sx={{ width: { xs: '100%', md: '20%' } }}
                     >
                         {uniqueBaseCurrencies
-                            .slice() // Erstelle eine Kopie, um die originale Liste nicht zu verändern
-                            .sort((a, b) => a.localeCompare(b)) // Sortiere alphabetisch
+                            .slice()
+                            .sort((a, b) => a.localeCompare(b))
                             .map((currency, index) => (
                                 <MenuItem key={index} value={currency}>
                                     {currency}
@@ -154,8 +167,8 @@ const CurrencyBox = () => {
                         disabled={!baseCurrency}
                     >
                         {targetCurrencies
-                            .slice() // Erstelle eine Kopie, um die originale Liste nicht zu verändern
-                            .sort((a, b) => a.localeCompare(b)) // Sortiere alphabetisch
+                            .slice()
+                            .sort((a, b) => a.localeCompare(b))
                             .map((currency, index) => (
                                 <MenuItem key={index} value={currency}>
                                     {currency}

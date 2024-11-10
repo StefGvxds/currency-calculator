@@ -4,19 +4,31 @@ import Alert from '@mui/material/Alert';
 
 export const MessageContext = createContext();
 
+/**
+ * Provider component to manage and provide message notifications
+ * @param children
+ * @returns {Element}
+ * @constructor
+ */
 const MessageProvider = ({ children }) => {
     const [message, setMessage] = useState(null);
     const [severity, setSeverity] = useState('info');
     const [open, setOpen] = useState(false);
 
-    // Funktion zum Anzeigen einer Nachricht
+    /**
+     * Function to display a message with a specified severity level
+     * @param msg
+     * @param severity
+     */
     const showMessage = (msg, severity = 'info') => {
         setMessage(msg);
         setSeverity(severity);
         setOpen(true);
     };
 
-    // Schließen der Snackbar
+    /**
+     * Function to close the Snackbar
+     */
     const handleClose = () => {
         setOpen(false);
     };

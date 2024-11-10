@@ -7,6 +7,11 @@ import UpdateExchangeRateButton from './UpdateExchangeRateButton';
 import {AuthContext} from "../../Context/AuthContext";
 import { useTranslation } from 'react-i18next';
 
+/**
+ * Component that displays a settings box with options for managing exchange rates if the user is authenticated
+ * @returns {Element}
+ * @constructor
+ */
 const SettingBox = () => {
     const { t } = useTranslation();
     const { isAuthenticated } = useContext(AuthContext);

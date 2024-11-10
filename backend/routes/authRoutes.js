@@ -22,9 +22,6 @@ router.post('/login', async (req, res) => {
             expiresIn: '1h'
         });
 
-        console.log("Login response data:", { token, userId: user._id, username: user.username });
-
-
         res.json({ token, userId: user._id, username: user.username });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -76,7 +73,6 @@ router.put('/user/:id/password', protect, async (req, res) => {
         user.password = await bcrypt.hash(newPassword, salt);
         await user.save();
 
-        console.log("User password after save:", user.password);
         res.json({ message: 'Password updated successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });

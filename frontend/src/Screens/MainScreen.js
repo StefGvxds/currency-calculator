@@ -3,6 +3,11 @@ import {Stack, Box, Typography} from '@mui/material';
 import Image from '../Assets/currencyEx.webp';
 import { useTranslation } from 'react-i18next';
 
+/**
+ * MainScreen component displaying a header with background image and overlay text
+ * @returns {Element}
+ * @constructor
+ */
 const MainScreen = () => {
 
     const { t } = useTranslation();
@@ -22,7 +27,6 @@ const MainScreen = () => {
                     textAlign: 'center',
                 }}
             >
-                {/* Hintergrund-Box */}
                 <Box
                     sx={{
                         position: 'absolute',
@@ -33,10 +37,9 @@ const MainScreen = () => {
                         backgroundImage: `url(${Image})`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
-                        filter: 'brightness(0.5)', // verdunkelt das Bild ein wenig
+                        filter: 'brightness(0.5)',
                     }}
                 />
-                {/* Halbtransparente Overlay-Box */}
                 <Box
                     sx={{
                         position: 'absolute',
@@ -47,7 +50,6 @@ const MainScreen = () => {
                         backgroundColor: '#0638524D',
                     }}
                 />
-                {/* Text auf dem Hintergrund */}
                 <Box sx={{ position: 'relative' }}>
                     <Typography variant="h3">{t("convert_currency")}</Typography>
                 </Box>

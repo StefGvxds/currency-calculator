@@ -26,7 +26,10 @@ const AddExchangeRateButton = () => {
     const [exchangeRate, setExchangeRate] = useState('');
     const [existingRates, setExistingRates] = useState([]);
 
-// Funktion zum Abrufen der vorhandenen Wechselkurse
+    /**
+     * Fetches existing exchange rates from the server
+     * @returns {Promise<void>}
+     */
     const fetchExistingExchangeRates = async () => {
         try {
             const response = await fetchAllExchangeRates();
@@ -36,10 +39,13 @@ const AddExchangeRateButton = () => {
         }
     };
 
-    // Open and close dialogs
+    /**
+     * Handle Dialog
+     * @returns {Promise<void>}
+     */
     const handleDialogOpen = async () => {
         setDialogOpen(true);
-        await fetchExistingExchangeRates(); // Abrufen der vorhandenen Wechselkurse beim Öffnen des Dialogs
+        await fetchExistingExchangeRates();
     };
 
     const handleDialogClose = () => {
@@ -49,7 +55,12 @@ const AddExchangeRateButton = () => {
         setExchangeRate('');
     };
 
-    // Prüft, ob das Währungspaar bereits existiert
+    /**
+     * Checks if a duplicate exchange rate exists
+     * @param base
+     * @param target
+     * @returns {boolean}
+     */
     const isDuplicateRate = (base, target) => {
         return existingRates.some(
             (rate) =>
@@ -57,7 +68,11 @@ const AddExchangeRateButton = () => {
         );
     };
 
-    // Submit the new exchange rate
+
+    /**
+     * Handles adding a new exchange rate, including validation and API call
+     * @returns {Promise<void>}
+     */
     const handleAddExchangeRate = async () => {
 
         const cleanedBaseCurrency = baseCurrency.trim();
@@ -82,15 +97,21 @@ const AddExchangeRateButton = () => {
         }
     };
 
-    // Submit on Enter key press
+    /**
+     * Allows pressing Enter to submit the form
+     * @param e
+     */
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             handleAddExchangeRate();
         }
     };
 
-    // Render component only if authenticated
+    /**
+     * Render nothing if the user is not authenticated
+     */
     if (!isAuthenticated) return null;
+
     return (
         <>
             <Button

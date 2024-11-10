@@ -22,7 +22,9 @@ const UpdateExchangeRateButton = () => {
     const [targetCurrency, setTargetCurrency] = useState('');
     const [exchangeRate, setExchangeRate] = useState('');
 
-    // Laden der Exchange Rates für das Dropdown-Menü
+    /**
+     * Fetch all exchange rates from the server when the component mounts
+     */
     useEffect(() => {
         const loadExchangeRates = async () => {
             try {
@@ -35,14 +37,18 @@ const UpdateExchangeRateButton = () => {
         loadExchangeRates();
     }, [showMessage]);
 
-    // Öffnen und Schließen des Dialogs
+    /**
+     * Handle Dialog
+     */
     const handleDialogOpen = () => setDialogOpen(true);
     const handleDialogClose = () => {
         setDialogOpen(false);
         resetFields();
     };
 
-    // Felder zurücksetzen
+    /**
+     * Resets input fields when the dialog is closed
+     */
     const resetFields = () => {
         setSelectedExchangeId('');
         setBaseCurrency('');
@@ -50,7 +56,10 @@ const UpdateExchangeRateButton = () => {
         setExchangeRate('');
     };
 
-    // Auswahl eines Exchange Rates und Vorausfüllen der Felder
+    /**
+     * Handles selection of an exchange rate from the dropdown and fills in the fields
+     * @param id
+     */
     const handleExchangeSelect = (id) => {
         setSelectedExchangeId(id);
         const selectedExchange = exchangeRates.find(rate => rate._id === id);
@@ -61,17 +70,26 @@ const UpdateExchangeRateButton = () => {
         }
     };
 
+    /**
+     * Checks for duplicate exchange rates in the list, excluding the currently selected rate
+     * @param base
+     * @param target
+     * @param id
+     * @returns {boolean}
+     */
     const isDuplicateExchangeRate = (base, target, id) => {
         return exchangeRates.some(
             (rate) =>
                 rate.baseCurrency === base &&
                 rate.targetCurrency === target &&
-                rate._id !== id // Sicherstellen, dass es ein anderer Eintrag ist
+                rate._id !== id
         );
     };
 
-
-    // Funktion zum Aktualisieren der Exchange Rate
+    /**
+     * Handles the update process, validating input and calling the API
+     * @returns {Promise<void>}
+     */
     const handleUpdateExchangeRate = async () => {
         if (!selectedExchangeId) {
             showMessage(`${t("select_exchange_rate_to_update")}`, 'error');
@@ -81,7 +99,6 @@ const UpdateExchangeRateButton = () => {
         const cleanedBaseCurrency = baseCurrency.trim();
         const cleanedTargetCurrency = targetCurrency.trim();
 
-        // Duplikat-Prüfung für Base und Target Currency
         if (isDuplicateExchangeRate(cleanedBaseCurrency, cleanedTargetCurrency, selectedExchangeId)) {
             showMessage(`${t("exchange_rate_already_exists")}`, 'error');
             return;
@@ -108,14 +125,21 @@ const UpdateExchangeRateButton = () => {
         }
     };
 
-    // Submit on Enter key press
+    /**
+     * Allows pressing Enter to submit the form
+     * @param e
+     */
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             handleUpdateExchangeRate();
         }
     };
 
+    /**
+     * Render nothing if the user is not authenticated
+     */
     if (!isAuthenticated) return null;
+
     return (
         <>
             <Button
@@ -140,8 +164,8 @@ const UpdateExchangeRateButton = () => {
                         margin="dense"
                     >
                         {exchangeRates
-                            .slice() // Kopiere die Liste, um das Original nicht zu verändern
-                            .sort((a, b) => a.baseCurrency.localeCompare(b.baseCurrency)) // Sortiere nach baseCurrency
+                            .slice()
+                            .sort((a, b) => a.baseCurrency.localeCompare(b.baseCurrency))
                             .map((rate) => (
                                 <MenuItem key={rate._id} value={rate._id}>
                                     {`${rate.baseCurrency} -> ${rate.targetCurrency} : ${rate.exchangeRate}`}

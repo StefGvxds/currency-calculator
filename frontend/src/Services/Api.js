@@ -2,7 +2,7 @@ import axiosInstance from './axiosInstance';
 import {useTranslation} from "react-i18next";
 
 /**
- * User APIs
+ * User Authentication and Management APIs
  */
 export const registerUser = (data) => axiosInstance.post('/auth/register', data);
 export const deleteUser = (id) => axiosInstance.delete(`/auth/user/${id}`);
@@ -12,8 +12,6 @@ export const updatePassword = (id, newPassword) => axiosInstance.put(`/auth/user
 export const loginUser = async (data) => {
     const response = await axiosInstance.post('/auth/login', data);
     const { token, userId, username } = response.data;
-
-    console.log("API Response:", response.data);
 
     if (token) {
         localStorage.setItem('username', username);
@@ -30,7 +28,7 @@ export const logoutUser = () => {
 };
 
 /**
- * Exchange APIs
+ * Currency Exchange Rate APIs
  */
 export const fetchAllExchangeRates = () => axiosInstance.get('/currency');
 export const addExchangeRate = (data) => axiosInstance.post('/currency', data);

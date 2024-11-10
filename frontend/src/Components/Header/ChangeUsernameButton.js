@@ -13,18 +13,25 @@ import { useTranslation } from 'react-i18next';
 
 const ChangeUsernameButton = ({ onClose }) => {
     const { t } = useTranslation();
-    const { userId, setUsername } = useContext(AuthContext); // userId und setUsername aus AuthContext
+    const { userId, setUsername } = useContext(AuthContext);
     const [open, setOpen] = useState(false);
     const [newUsername, setNewUsername] = useState('');
 
     const { showMessage } = useContext(MessageContext);
 
+    /**
+     * Open and close handlers for the dialog
+     */
     const handleDialogOpen = () => setOpen(true);
     const handleDialogClose = () => {
         setOpen(false);
-        if (onClose) onClose(); // Schließt Popover nach dem Dialog schließen
+        if (onClose) onClose();
     };
 
+    /**
+     * Function to handle updating the username via API and providing feedback to the user
+     * @returns {Promise<void>}
+     */
     const handleUpdateUsername = async () => {
         if (!newUsername) {
             showMessage(`${t("username_empty")}`, 'error');
@@ -32,8 +39,8 @@ const ChangeUsernameButton = ({ onClose }) => {
         }
 
         try {
-            await updateUsername(userId, newUsername); // userId für die Anfrage verwenden
-            setUsername(newUsername); // AuthContext aktualisieren
+            await updateUsername(userId, newUsername);
+            setUsername(newUsername);
             showMessage(`${t("username_updated")}`, 'success');
             handleDialogClose();
         } catch (error) {
@@ -48,6 +55,10 @@ const ChangeUsernameButton = ({ onClose }) => {
         }
     };
 
+    /**
+     * Handle Enter key to submit username update directly from input field
+     * @param e
+     */
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             handleUpdateUsername();
@@ -60,7 +71,6 @@ const ChangeUsernameButton = ({ onClose }) => {
                 {t("change_username")}
             </Button>
 
-            {/* Dialog for changing username */}
             <Dialog open={open} onClose={handleDialogClose}>
                 <DialogTitle>{t("change_username")}</DialogTitle>
                 <DialogContent>

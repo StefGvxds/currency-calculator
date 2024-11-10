@@ -3,8 +3,10 @@ import Currency from '../models/Currency.js';
 const router = express.Router();
 import protect from '../middleware/authMiddleware.js';
 
-// Create a new exchange rate
-// Only authenticated users can access this function >protect<
+/**
+ * Create a new exchange rate
+ * Only authenticated users can access this function >protect<
+ */
 router.post('/currency', protect, async (req, res) => {
     try {
         const newCurrency = new Currency(req.body);
@@ -15,7 +17,9 @@ router.post('/currency', protect, async (req, res) => {
     }
 });
 
-// Get all exchange rates
+/**
+ * Get all exchange rates
+ */
 router.get('/currency', async (req, res) => {
     try {
         const currencies = await Currency.find();
@@ -25,8 +29,10 @@ router.get('/currency', async (req, res) => {
     }
 });
 
-// Update an exchange rate by ID
-// Only authenticated users can access this function >protect<
+/**
+ * Update an exchange rate by ID
+ * Only authenticated users can access this function >protect<
+ */
 router.put('/currency/:id', protect, async (req, res) => {
     try {
         const updatedCurrency = await Currency.findByIdAndUpdate(
@@ -40,8 +46,10 @@ router.put('/currency/:id', protect, async (req, res) => {
     }
 });
 
-// Delete an exchange rate by ID
-// Only authenticated users can access this function >protect<
+/**
+ * Delete an exchange rate by ID
+ * Only authenticated users can access this function >protect<
+ */
 router.delete('/currency/:id', protect, async (req, res) => {
     try {
         await Currency.findByIdAndDelete(req.params.id);
@@ -51,7 +59,9 @@ router.delete('/currency/:id', protect, async (req, res) => {
     }
 });
 
-// Currency conversion endpoint
+/**
+ * Currency conversion endpoint
+ */
 router.post('/convert', async (req, res) => {
     const { baseCurrency, targetCurrency, amount } = req.body;
 
@@ -71,6 +81,9 @@ router.post('/convert', async (req, res) => {
     }
 });
 
+/**
+ * Currency reverse endpoint
+ */
 router.post('/convert-reverse', async (req, res) => {
     const { baseCurrency, targetCurrency, amount } = req.body;
 

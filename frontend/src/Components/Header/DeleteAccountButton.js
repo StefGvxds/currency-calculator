@@ -12,28 +12,39 @@ import { useTranslation } from 'react-i18next';
 
 const DeleteAccountButton = ({ onClose }) => {
     const { t } = useTranslation();
-    const { userId, logout } = useContext(AuthContext); // userId und logout aus AuthContext
+    const { userId, logout } = useContext(AuthContext);
     const [open, setOpen] = useState(false);
     const { showMessage } = useContext(MessageContext);
 
+    /**
+     * Functions to open and close the confirmation dialog
+     */
     const handleDialogOpen = () => setOpen(true);
     const handleDialogClose = () => {
         setOpen(false);
-        if (onClose) onClose(); // Schließt Popover nach dem Dialog schließen
+        if (onClose) onClose();
     };
 
+    /**
+     * unction to handle account deletion, including API call and user feedback
+     * @returns {Promise<void>}
+     */
     const handleDeleteAccount = async () => {
         try {
             await deleteUser(userId);
             showMessage(`${t("account_deleted_successfully")}`, 'success');
             handleDialogClose();
-            logout(); // Benutzer ausloggen nach Löschung des Kontos
+            logout();
         } catch (error) {
             const errorMessage = error.response?.data?.message || `${t("unexpected_error")}`;
             showMessage(errorMessage, 'error');
         }
     };
 
+    /**
+     * Handle Enter key to submit the account deletion directly from confirmation dialog
+     * @param e
+     */
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             handleDeleteAccount();

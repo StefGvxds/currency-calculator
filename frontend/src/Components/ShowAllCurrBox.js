@@ -13,6 +13,11 @@ import { fetchAllExchangeRates } from '../Services/Api';
 import { CurrencyUpdateContext } from '../Context/CurrencyUpdateContext';
 import { useTranslation } from 'react-i18next';
 
+/**
+ * Component to display all available exchange rates in a table
+ * @returns {Element}
+ * @constructor
+ */
 const ShowAllCurrBox = () => {
     const {t} = useTranslation();
     const [exchangeRates, setExchangeRates] = useState([]);
@@ -20,6 +25,9 @@ const ShowAllCurrBox = () => {
 
     const { updateTrigger } = useContext(CurrencyUpdateContext);
 
+    /**
+     * Fetch exchange rates when the component mounts or when updateTrigger changes
+     */
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
